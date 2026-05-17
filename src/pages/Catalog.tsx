@@ -13,42 +13,52 @@ const SORT_OPTIONS = [
 ];
 
 const IMGS = {
+  // оригинальные
   a: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/96a548eb-cc39-4459-9aa4-ea70326cedf8.jpg",
   b: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/0b467c5c-906d-4356-95dc-0cd288f82de5.jpg",
   c: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/eb0370a8-bf92-4f69-a283-11e7fa4f220a.jpg",
+  // одежда старые
   h: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/8e95bc50-c558-40ec-8ee6-a931ac876119.jpg",
   p: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/abf8a216-dd8d-499f-a3a0-0f9b4d3d601d.jpg",
+  // новые кроссовки
+  r: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/49ee0d51-a313-4915-b2f6-030ba3028b85.jpg",
+  k: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/caecc500-484c-4fb2-810c-3d8c045f34bb.jpg",
+  g: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/fd31d2ea-7a01-46b6-a505-3356d77efb4b.jpg",
+  e: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/a88438e9-e180-4d38-94c4-36a3c3b30b03.jpg",
+  // новая одежда
+  z: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/f8952023-86ae-413d-937b-4ca9e81820b6.jpg",
+  m: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/28313b24-0b42-458e-9c52-260c30f4538c.jpg",
 };
 
 const ALL_PRODUCTS = [
   // ── КРОССОВКИ ─────────────────────────────────────────────────────────────
-  { id: 1,  name: "Wave Runner 01",       brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 12990, oldPrice: 16990, discount: 23, tag: "Новинка", sizes: [38,39,40,41,42,43,44], img: IMGS.a },
-  { id: 2,  name: "Collab Drop SS25",     brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",   price: 18500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42,43],       img: IMGS.b },
-  { id: 3,  name: "Street Archive",       brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 9990,  oldPrice: 12990, discount: 23, tag: "Хит",     sizes: [36,37,38,39,40,41,42], img: IMGS.c },
-  { id: 4,  name: "Court Classic",        brand: "SneakWave",       category: "Баскетбол",    type: "shoe",   price: 14500, oldPrice: 18000, discount: 19, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.a },
-  { id: 5,  name: "Foam Pro Lite",        brand: "SneakWave",       category: "Повседневные", type: "shoe",   price: 7490,  oldPrice: null,  discount: null, tag: null,      sizes: [36,37,38,39,40,41],    img: IMGS.b },
-  { id: 6,  name: "Urban Edge X",         brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 11200, oldPrice: 14900, discount: 25, tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.c },
-  { id: 7,  name: "Eco Future Vol.1",     brand: "SneakWave Eco",   category: "Повседневные", type: "shoe",   price: 10990, oldPrice: null,  discount: null, tag: "Эко",     sizes: [37,38,39,40,41,42,43], img: IMGS.a },
-  { id: 8,  name: "Galaxy Boost",         brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 16800, oldPrice: 21000, discount: 20, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.b },
-  { id: 9,  name: "Shadow Low",           brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 8990,  oldPrice: null,  discount: null, tag: "Новинка", sizes: [38,39,40,41,42],       img: IMGS.c },
-  { id: 10, name: "Drift Trainer",        brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 13500, oldPrice: 17000, discount: 21, tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.a },
-  { id: 11, name: "Hoop Legend '25",      brand: "SneakWave",       category: "Баскетбол",    type: "shoe",   price: 19900, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [41,42,43,44,45],       img: IMGS.b },
-  { id: 12, name: "Velvet Low",           brand: "SneakWave Eco",   category: "Повседневные", type: "shoe",   price: 9200,  oldPrice: 11500, discount: 20, tag: "Скидка",  sizes: [36,37,38,39,40,41,42], img: IMGS.c },
-  { id: 13, name: "Artisan Mule",         brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",   price: 22000, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42],          img: IMGS.a },
-  { id: 14, name: "Crunch Pro",           brand: "SneakWave",       category: "Баскетбол",    type: "shoe",   price: 15990, oldPrice: 19500, discount: 18, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.b },
-  { id: 15, name: "Air Pulse Run",        brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 11800, oldPrice: null,  discount: null, tag: "Новинка", sizes: [37,38,39,40,41,42,43], img: IMGS.c },
-  { id: 16, name: "Canvas Daily",         brand: "SneakWave",       category: "Повседневные", type: "shoe",   price: 5990,  oldPrice: 7990,  discount: 25, tag: "Скидка",  sizes: [36,37,38,39,40,41],    img: IMGS.a },
-  { id: 17, name: "Grind Vulcanized",     brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 7990,  oldPrice: null,  discount: null, tag: null,      sizes: [38,39,40,41,42,43],    img: IMGS.b },
-  { id: 18, name: "Collab x Street Art",  brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",   price: 24500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [40,41,42,43],          img: IMGS.c },
+  { id: 1,  name: "Wave Runner 01",       brand: "SneakWave",       category: "Бег",          type: "shoe",  price: 12990, oldPrice: 16990, discount: 23,  tag: "Новинка", sizes: [38,39,40,41,42,43,44], img: IMGS.r },
+  { id: 2,  name: "Collab Drop SS25",     brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",  price: 18500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42,43],       img: IMGS.b },
+  { id: 3,  name: "Street Archive",       brand: "SneakWave",       category: "Скейт",        type: "shoe",  price: 9990,  oldPrice: 12990, discount: 23,  tag: "Хит",     sizes: [36,37,38,39,40,41,42], img: IMGS.g },
+  { id: 4,  name: "Court Classic",        brand: "SneakWave",       category: "Баскетбол",    type: "shoe",  price: 14500, oldPrice: 18000, discount: 19,  tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.k },
+  { id: 5,  name: "Foam Pro Lite",        brand: "SneakWave",       category: "Повседневные", type: "shoe",  price: 7490,  oldPrice: null,  discount: null, tag: null,      sizes: [36,37,38,39,40,41],    img: IMGS.e },
+  { id: 6,  name: "Urban Edge X",         brand: "SneakWave",       category: "Скейт",        type: "shoe",  price: 11200, oldPrice: 14900, discount: 25,  tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.g },
+  { id: 7,  name: "Eco Future Vol.1",     brand: "SneakWave Eco",   category: "Повседневные", type: "shoe",  price: 10990, oldPrice: null,  discount: null, tag: "Эко",     sizes: [37,38,39,40,41,42,43], img: IMGS.e },
+  { id: 8,  name: "Galaxy Boost",         brand: "SneakWave",       category: "Бег",          type: "shoe",  price: 16800, oldPrice: 21000, discount: 20,  tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.r },
+  { id: 9,  name: "Shadow Low",           brand: "SneakWave",       category: "Скейт",        type: "shoe",  price: 8990,  oldPrice: null,  discount: null, tag: "Новинка", sizes: [38,39,40,41,42],       img: IMGS.k },
+  { id: 10, name: "Drift Trainer",        brand: "SneakWave",       category: "Бег",          type: "shoe",  price: 13500, oldPrice: 17000, discount: 21,  tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.a },
+  { id: 11, name: "Hoop Legend '25",      brand: "SneakWave",       category: "Баскетбол",    type: "shoe",  price: 19900, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [41,42,43,44,45],       img: IMGS.k },
+  { id: 12, name: "Velvet Low",           brand: "SneakWave Eco",   category: "Повседневные", type: "shoe",  price: 9200,  oldPrice: 11500, discount: 20,  tag: "Скидка",  sizes: [36,37,38,39,40,41,42], img: IMGS.e },
+  { id: 13, name: "Artisan Mule",         brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",  price: 22000, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42],          img: IMGS.a },
+  { id: 14, name: "Crunch Pro",           brand: "SneakWave",       category: "Баскетбол",    type: "shoe",  price: 15990, oldPrice: 19500, discount: 18,  tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.k },
+  { id: 15, name: "Air Pulse Run",        brand: "SneakWave",       category: "Бег",          type: "shoe",  price: 11800, oldPrice: null,  discount: null, tag: "Новинка", sizes: [37,38,39,40,41,42,43], img: IMGS.r },
+  { id: 16, name: "Canvas Daily",         brand: "SneakWave",       category: "Повседневные", type: "shoe",  price: 5990,  oldPrice: 7990,  discount: 25,  tag: "Скидка",  sizes: [36,37,38,39,40,41],    img: IMGS.e },
+  { id: 17, name: "Grind Vulcanized",     brand: "SneakWave",       category: "Скейт",        type: "shoe",  price: 7990,  oldPrice: null,  discount: null, tag: null,      sizes: [38,39,40,41,42,43],    img: IMGS.g },
+  { id: 18, name: "Collab x Street Art",  brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",  price: 24500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [40,41,42,43],          img: IMGS.b },
   // ── ОДЕЖДА ────────────────────────────────────────────────────────────────
-  { id: 19, name: "Oversized Hoodie SW",  brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 4990,  oldPrice: 7490,  discount: 33, tag: "Скидка",  sizes: ["S","M","L","XL"],         img: IMGS.h },
-  { id: 20, name: "Wave Cargo Pants",     brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 5990,  oldPrice: 8990,  discount: 33, tag: "Скидка",  sizes: ["S","M","L","XL","XXL"],    img: IMGS.p },
-  { id: 21, name: "Street Puffer Vest",   brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 6490,  oldPrice: 9990,  discount: 35, tag: "Хит",     sizes: ["XS","S","M","L","XL"],     img: IMGS.h },
-  { id: 22, name: "Jogger Tech Fleece",   brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 3990,  oldPrice: 5490,  discount: 27, tag: "Скидка",  sizes: ["S","M","L","XL","XXL"],    img: IMGS.p },
-  { id: 23, name: "Drop Shoulder Tee",    brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 1990,  oldPrice: 2990,  discount: 33, tag: "Скидка",  sizes: ["XS","S","M","L"],          img: IMGS.h },
-  { id: 24, name: "Collab Bomber SS25",   brand: "SneakWave × Арт", category: "Одежда",       type: "cloth",  price: 11900, oldPrice: null,  discount: null, tag: "Лимит",  sizes: ["S","M","L","XL"],          img: IMGS.p },
-  { id: 25, name: "Eco Sweatshirt",       brand: "SneakWave Eco",   category: "Одежда",       type: "cloth",  price: 4290,  oldPrice: 5990,  discount: 28, tag: "Эко",     sizes: ["XS","S","M","L","XL","XXL"],img: IMGS.h },
-  { id: 26, name: "Wide Track Shorts",    brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 2490,  oldPrice: 3490,  discount: 29, tag: "Скидка",  sizes: ["S","M","L","XL"],          img: IMGS.p },
+  { id: 19, name: "Oversized Hoodie SW",  brand: "SneakWave",       category: "Одежда",       type: "cloth", price: 4990,  oldPrice: 7490,  discount: 33,  tag: "Скидка",  sizes: ["S","M","L","XL"],          img: IMGS.h },
+  { id: 20, name: "Wave Cargo Pants",     brand: "SneakWave",       category: "Одежда",       type: "cloth", price: 5990,  oldPrice: 8990,  discount: 33,  tag: "Скидка",  sizes: ["S","M","L","XL","XXL"],     img: IMGS.p },
+  { id: 21, name: "Street Puffer Vest",   brand: "SneakWave",       category: "Одежда",       type: "cloth", price: 6490,  oldPrice: 9990,  discount: 35,  tag: "Хит",     sizes: ["XS","S","M","L","XL"],      img: IMGS.m },
+  { id: 22, name: "Jogger Tech Fleece",   brand: "SneakWave",       category: "Одежда",       type: "cloth", price: 3990,  oldPrice: 5490,  discount: 27,  tag: "Скидка",  sizes: ["S","M","L","XL","XXL"],     img: IMGS.p },
+  { id: 23, name: "Drop Shoulder Tee",    brand: "SneakWave",       category: "Одежда",       type: "cloth", price: 1990,  oldPrice: 2990,  discount: 33,  tag: "Скидка",  sizes: ["XS","S","M","L"],           img: IMGS.h },
+  { id: 24, name: "Collab Bomber SS25",   brand: "SneakWave × Арт", category: "Одежда",       type: "cloth", price: 11900, oldPrice: null,  discount: null, tag: "Лимит",  sizes: ["S","M","L","XL"],           img: IMGS.m },
+  { id: 25, name: "Eco Sweatshirt",       brand: "SneakWave Eco",   category: "Одежда",       type: "cloth", price: 4290,  oldPrice: 5990,  discount: 28,  tag: "Эко",     sizes: ["XS","S","M","L","XL","XXL"], img: IMGS.z },
+  { id: 26, name: "Wide Track Shorts",    brand: "SneakWave",       category: "Одежда",       type: "cloth", price: 2490,  oldPrice: 3490,  discount: 29,  tag: "Скидка",  sizes: ["S","M","L","XL"],           img: IMGS.z },
 ];
 
 type Product = typeof ALL_PRODUCTS[0];
@@ -59,13 +69,39 @@ interface OrderModalProps {
   onClose: () => void;
 }
 
+const ORDER_URL = "https://functions.poehali.dev/b8a59baf-36a8-493f-bafd-a4838968c1b3";
+
 function OrderModal({ product, size, onClose }: OrderModalProps) {
   const [form, setForm] = useState({ name: "", phone: "", address: "" });
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(ORDER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          address: form.address,
+          product_name: product.name,
+          brand: product.brand,
+          size: String(size),
+          product_price: product.price.toLocaleString("ru-RU") + " ₽",
+        }),
+      });
+      if (!res.ok) throw new Error("error");
+      setSent(true);
+    } catch {
+      setError("Не удалось отправить заказ. Попробуйте ещё раз.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -136,11 +172,19 @@ function OrderModal({ product, size, onClose }: OrderModalProps) {
                   className="w-full px-4 py-3 border border-black/12 focus:outline-none focus:border-wave-black text-sm transition-colors"
                 />
               </div>
+              {error && (
+                <p className="text-sm text-[#FF3B1F] border border-[#FF3B1F]/20 bg-[#FF3B1F]/5 px-4 py-3">{error}</p>
+              )}
               <button
                 type="submit"
-                className="w-full bg-wave-black text-white py-4 font-semibold hover:bg-[#FF3B1F] transition-colors mt-2"
+                disabled={loading}
+                className={`w-full py-4 font-semibold transition-colors mt-2 ${
+                  loading
+                    ? "bg-black/20 text-black/40 cursor-not-allowed"
+                    : "bg-wave-black text-white hover:bg-[#FF3B1F]"
+                }`}
               >
-                Подтвердить заказ
+                {loading ? "Отправляем..." : "Подтвердить заказ"}
               </button>
             </form>
           </div>

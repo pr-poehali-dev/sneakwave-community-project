@@ -1,0 +1,17 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Missing fields validation",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "", "phone": "", "address": "", "product_name": ""},
+      "expectedStatus": 400
+    }
+  ]
+}
