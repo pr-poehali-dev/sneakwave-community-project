@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 
 const NAV_LINKS = [
@@ -70,8 +71,10 @@ const MARQUEE_TEXT = ["SneakWave", "Стиль", "Движение", "Индив
 
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const scrollTo = (id: string) => {
+    if (id === "catalog") { navigate("/catalog"); return; }
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
   };
@@ -189,7 +192,7 @@ export default function Index() {
             <span className="text-xs font-semibold tracking-[0.2em] text-[#FF3B1F] uppercase">Коллекция</span>
             <h2 className="font-display text-6xl md:text-7xl mt-2">КАТАЛОГ</h2>
           </div>
-          <button className="hidden md:flex items-center gap-2 text-sm font-medium text-wave-mid hover:text-wave-black transition-colors">
+          <button onClick={() => navigate("/catalog")} className="hidden md:flex items-center gap-2 text-sm font-medium text-wave-mid hover:text-wave-black transition-colors">
             Все товары <Icon name="ArrowRight" size={16} />
           </button>
         </div>
@@ -219,7 +222,7 @@ export default function Index() {
         </div>
 
         <div className="mt-10 text-center md:hidden">
-          <button className="border border-wave-black text-wave-black px-8 py-3 font-semibold hover:bg-wave-black hover:text-white transition-colors">
+          <button onClick={() => navigate("/catalog")} className="border border-wave-black text-wave-black px-8 py-3 font-semibold hover:bg-wave-black hover:text-white transition-colors">
             Все товары
           </button>
         </div>
