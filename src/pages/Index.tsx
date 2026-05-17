@@ -365,11 +365,17 @@ export default function Index() {
                 </div>
               </div>
               <div>
-                <p className="text-xs font-semibold tracking-[0.15em] text-white/40 uppercase mb-4">Контакты</p>
+                <p className="text-xs font-semibold tracking-[0.15em] text-white/40 uppercase mb-4">Соцсети</p>
                 <div className="flex flex-col gap-3">
-                  <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">Instagram</a>
-                  <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">Telegram</a>
-                  <a href="#" className="text-sm text-white/70 hover:text-white transition-colors">VK</a>
+                  <a href="#" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
+                    <Icon name="Instagram" size={14} /> Instagram
+                  </a>
+                  <a href="#" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
+                    <Icon name="Music2" size={14} /> TikTok
+                  </a>
+                  <a href="#" className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors">
+                    <Icon name="Send" size={14} /> Telegram
+                  </a>
                 </div>
               </div>
             </div>
