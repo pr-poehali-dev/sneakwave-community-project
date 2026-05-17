@@ -2,8 +2,9 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 
-const SIZES = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
-const CATEGORIES = ["Все", "Бег", "Баскетбол", "Скейт", "Повседневные", "Коллаборации"];
+const SHOE_SIZES = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
+const CLOTH_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
+const CATEGORIES = ["Все", "Кроссовки", "Одежда", "Бег", "Баскетбол", "Скейт", "Повседневные", "Коллаборации"];
 const SORT_OPTIONS = [
   { value: "default", label: "По умолчанию" },
   { value: "price_asc", label: "Цена: по возрастанию" },
@@ -15,34 +16,46 @@ const IMGS = {
   a: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/96a548eb-cc39-4459-9aa4-ea70326cedf8.jpg",
   b: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/0b467c5c-906d-4356-95dc-0cd288f82de5.jpg",
   c: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/eb0370a8-bf92-4f69-a283-11e7fa4f220a.jpg",
+  h: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/8e95bc50-c558-40ec-8ee6-a931ac876119.jpg",
+  p: "https://cdn.poehali.dev/projects/250c9868-106d-4599-864e-8ba2db636eb8/files/abf8a216-dd8d-499f-a3a0-0f9b4d3d601d.jpg",
 };
 
 const ALL_PRODUCTS = [
-  { id: 1,  name: "Wave Runner 01",       brand: "SneakWave",       category: "Бег",          price: 12990, oldPrice: 16990, discount: 23, tag: "Новинка", sizes: [38,39,40,41,42,43,44], img: IMGS.a },
-  { id: 2,  name: "Collab Drop SS25",     brand: "SneakWave × Арт", category: "Коллаборации", price: 18500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42,43],       img: IMGS.b },
-  { id: 3,  name: "Street Archive",       brand: "SneakWave",       category: "Скейт",        price: 9990,  oldPrice: 12990, discount: 23, tag: "Хит",     sizes: [36,37,38,39,40,41,42], img: IMGS.c },
-  { id: 4,  name: "Court Classic",        brand: "SneakWave",       category: "Баскетбол",    price: 14500, oldPrice: 18000, discount: 19, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.a },
-  { id: 5,  name: "Foam Pro Lite",        brand: "SneakWave",       category: "Повседневные", price: 7490,  oldPrice: null,  discount: null, tag: null,      sizes: [36,37,38,39,40,41],    img: IMGS.b },
-  { id: 6,  name: "Urban Edge X",         brand: "SneakWave",       category: "Скейт",        price: 11200, oldPrice: 14900, discount: 25, tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.c },
-  { id: 7,  name: "Eco Future Vol.1",     brand: "SneakWave Eco",   category: "Повседневные", price: 10990, oldPrice: null,  discount: null, tag: "Эко",     sizes: [37,38,39,40,41,42,43], img: IMGS.a },
-  { id: 8,  name: "Galaxy Boost",         brand: "SneakWave",       category: "Бег",          price: 16800, oldPrice: 21000, discount: 20, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.b },
-  { id: 9,  name: "Shadow Low",           brand: "SneakWave",       category: "Скейт",        price: 8990,  oldPrice: null,  discount: null, tag: "Новинка", sizes: [38,39,40,41,42],        img: IMGS.c },
-  { id: 10, name: "Drift Trainer",        brand: "SneakWave",       category: "Бег",          price: 13500, oldPrice: 17000, discount: 21, tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.a },
-  { id: 11, name: "Hoop Legend '25",      brand: "SneakWave",       category: "Баскетбол",    price: 19900, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [41,42,43,44,45],       img: IMGS.b },
-  { id: 12, name: "Velvet Low",           brand: "SneakWave Eco",   category: "Повседневные", price: 9200,  oldPrice: 11500, discount: 20, tag: "Скидка",  sizes: [36,37,38,39,40,41,42], img: IMGS.c },
-  { id: 13, name: "Artisan Mule",         brand: "SneakWave × Арт", category: "Коллаборации", price: 22000, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42],          img: IMGS.a },
-  { id: 14, name: "Crunch Pro",           brand: "SneakWave",       category: "Баскетбол",    price: 15990, oldPrice: 19500, discount: 18, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.b },
-  { id: 15, name: "Air Pulse Run",        brand: "SneakWave",       category: "Бег",          price: 11800, oldPrice: null,  discount: null, tag: "Новинка", sizes: [37,38,39,40,41,42,43], img: IMGS.c },
-  { id: 16, name: "Canvas Daily",         brand: "SneakWave",       category: "Повседневные", price: 5990,  oldPrice: 7990,  discount: 25, tag: "Скидка",  sizes: [36,37,38,39,40,41],    img: IMGS.a },
-  { id: 17, name: "Grind Vulcanized",     brand: "SneakWave",       category: "Скейт",        price: 7990,  oldPrice: null,  discount: null, tag: null,      sizes: [38,39,40,41,42,43],    img: IMGS.b },
-  { id: 18, name: "Collab x Street Art",  brand: "SneakWave × Арт", category: "Коллаборации", price: 24500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [40,41,42,43],          img: IMGS.c },
+  // ── КРОССОВКИ ─────────────────────────────────────────────────────────────
+  { id: 1,  name: "Wave Runner 01",       brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 12990, oldPrice: 16990, discount: 23, tag: "Новинка", sizes: [38,39,40,41,42,43,44], img: IMGS.a },
+  { id: 2,  name: "Collab Drop SS25",     brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",   price: 18500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42,43],       img: IMGS.b },
+  { id: 3,  name: "Street Archive",       brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 9990,  oldPrice: 12990, discount: 23, tag: "Хит",     sizes: [36,37,38,39,40,41,42], img: IMGS.c },
+  { id: 4,  name: "Court Classic",        brand: "SneakWave",       category: "Баскетбол",    type: "shoe",   price: 14500, oldPrice: 18000, discount: 19, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.a },
+  { id: 5,  name: "Foam Pro Lite",        brand: "SneakWave",       category: "Повседневные", type: "shoe",   price: 7490,  oldPrice: null,  discount: null, tag: null,      sizes: [36,37,38,39,40,41],    img: IMGS.b },
+  { id: 6,  name: "Urban Edge X",         brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 11200, oldPrice: 14900, discount: 25, tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.c },
+  { id: 7,  name: "Eco Future Vol.1",     brand: "SneakWave Eco",   category: "Повседневные", type: "shoe",   price: 10990, oldPrice: null,  discount: null, tag: "Эко",     sizes: [37,38,39,40,41,42,43], img: IMGS.a },
+  { id: 8,  name: "Galaxy Boost",         brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 16800, oldPrice: 21000, discount: 20, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.b },
+  { id: 9,  name: "Shadow Low",           brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 8990,  oldPrice: null,  discount: null, tag: "Новинка", sizes: [38,39,40,41,42],       img: IMGS.c },
+  { id: 10, name: "Drift Trainer",        brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 13500, oldPrice: 17000, discount: 21, tag: "Скидка",  sizes: [39,40,41,42,43,44],    img: IMGS.a },
+  { id: 11, name: "Hoop Legend '25",      brand: "SneakWave",       category: "Баскетбол",    type: "shoe",   price: 19900, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [41,42,43,44,45],       img: IMGS.b },
+  { id: 12, name: "Velvet Low",           brand: "SneakWave Eco",   category: "Повседневные", type: "shoe",   price: 9200,  oldPrice: 11500, discount: 20, tag: "Скидка",  sizes: [36,37,38,39,40,41,42], img: IMGS.c },
+  { id: 13, name: "Artisan Mule",         brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",   price: 22000, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [39,40,41,42],          img: IMGS.a },
+  { id: 14, name: "Crunch Pro",           brand: "SneakWave",       category: "Баскетбол",    type: "shoe",   price: 15990, oldPrice: 19500, discount: 18, tag: "Скидка",  sizes: [40,41,42,43,44,45],    img: IMGS.b },
+  { id: 15, name: "Air Pulse Run",        brand: "SneakWave",       category: "Бег",          type: "shoe",   price: 11800, oldPrice: null,  discount: null, tag: "Новинка", sizes: [37,38,39,40,41,42,43], img: IMGS.c },
+  { id: 16, name: "Canvas Daily",         brand: "SneakWave",       category: "Повседневные", type: "shoe",   price: 5990,  oldPrice: 7990,  discount: 25, tag: "Скидка",  sizes: [36,37,38,39,40,41],    img: IMGS.a },
+  { id: 17, name: "Grind Vulcanized",     brand: "SneakWave",       category: "Скейт",        type: "shoe",   price: 7990,  oldPrice: null,  discount: null, tag: null,      sizes: [38,39,40,41,42,43],    img: IMGS.b },
+  { id: 18, name: "Collab x Street Art",  brand: "SneakWave × Арт", category: "Коллаборации", type: "shoe",   price: 24500, oldPrice: null,  discount: null, tag: "Лимит",   sizes: [40,41,42,43],          img: IMGS.c },
+  // ── ОДЕЖДА ────────────────────────────────────────────────────────────────
+  { id: 19, name: "Oversized Hoodie SW",  brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 4990,  oldPrice: 7490,  discount: 33, tag: "Скидка",  sizes: ["S","M","L","XL"],         img: IMGS.h },
+  { id: 20, name: "Wave Cargo Pants",     brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 5990,  oldPrice: 8990,  discount: 33, tag: "Скидка",  sizes: ["S","M","L","XL","XXL"],    img: IMGS.p },
+  { id: 21, name: "Street Puffer Vest",   brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 6490,  oldPrice: 9990,  discount: 35, tag: "Хит",     sizes: ["XS","S","M","L","XL"],     img: IMGS.h },
+  { id: 22, name: "Jogger Tech Fleece",   brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 3990,  oldPrice: 5490,  discount: 27, tag: "Скидка",  sizes: ["S","M","L","XL","XXL"],    img: IMGS.p },
+  { id: 23, name: "Drop Shoulder Tee",    brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 1990,  oldPrice: 2990,  discount: 33, tag: "Скидка",  sizes: ["XS","S","M","L"],          img: IMGS.h },
+  { id: 24, name: "Collab Bomber SS25",   brand: "SneakWave × Арт", category: "Одежда",       type: "cloth",  price: 11900, oldPrice: null,  discount: null, tag: "Лимит",  sizes: ["S","M","L","XL"],          img: IMGS.p },
+  { id: 25, name: "Eco Sweatshirt",       brand: "SneakWave Eco",   category: "Одежда",       type: "cloth",  price: 4290,  oldPrice: 5990,  discount: 28, tag: "Эко",     sizes: ["XS","S","M","L","XL","XXL"],img: IMGS.h },
+  { id: 26, name: "Wide Track Shorts",    brand: "SneakWave",       category: "Одежда",       type: "cloth",  price: 2490,  oldPrice: 3490,  discount: 29, tag: "Скидка",  sizes: ["S","M","L","XL"],          img: IMGS.p },
 ];
 
 type Product = typeof ALL_PRODUCTS[0];
 
 interface OrderModalProps {
   product: Product;
-  size: number;
+  size: number | string;
   onClose: () => void;
 }
 
@@ -147,11 +160,15 @@ export default function Catalog() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("Все");
-  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const [selectedShoeSize, setSelectedShoeSize] = useState<number | null>(null);
+  const [selectedClothSize, setSelectedClothSize] = useState<string | null>(null);
   const [onlyDiscount, setOnlyDiscount] = useState(false);
   const [sortBy, setSortBy] = useState("default");
-  const [selectedSizes, setSelectedSizes] = useState<Record<number, number>>({});
-  const [orderModal, setOrderModal] = useState<{ product: Product; size: number } | null>(null);
+  const [selectedSizes, setSelectedSizes] = useState<Record<number, number | string>>({});
+  const [orderModal, setOrderModal] = useState<{ product: Product; size: number | string } | null>(null);
+
+  const isClothingTab = activeCategory === "Одежда";
+  const isShoeTab = ["Бег","Баскетбол","Скейт","Повседневные","Коллаборации","Кроссовки"].includes(activeCategory);
 
   const filtered = useMemo(() => {
     let result = [...ALL_PRODUCTS];
@@ -159,18 +176,20 @@ export default function Catalog() {
       const q = search.toLowerCase();
       result = result.filter((p) => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
     }
-    if (activeCategory !== "Все") result = result.filter((p) => p.category === activeCategory);
-    if (selectedSize) result = result.filter((p) => p.sizes.includes(selectedSize));
+    if (activeCategory === "Кроссовки") result = result.filter((p) => p.type === "shoe");
+    else if (activeCategory !== "Все") result = result.filter((p) => p.category === activeCategory);
+    if (selectedShoeSize) result = result.filter((p) => p.type === "cloth" || (p.sizes as (number|string)[]).includes(selectedShoeSize));
+    if (selectedClothSize) result = result.filter((p) => p.type === "shoe" || (p.sizes as (number|string)[]).includes(selectedClothSize));
     if (onlyDiscount) result = result.filter((p) => p.discount !== null);
     if (sortBy === "price_asc") result.sort((a, b) => a.price - b.price);
     if (sortBy === "price_desc") result.sort((a, b) => b.price - a.price);
     if (sortBy === "discount") result.sort((a, b) => (b.discount ?? 0) - (a.discount ?? 0));
     return result;
-  }, [search, activeCategory, selectedSize, onlyDiscount, sortBy]);
+  }, [search, activeCategory, selectedShoeSize, selectedClothSize, onlyDiscount, sortBy]);
 
-  const toggleSize = (productId: number, size: number) => {
+  const toggleSize = (productId: number, size: number | string) => {
     setSelectedSizes((prev) =>
-      prev[productId] === size ? { ...prev, [productId]: 0 } : { ...prev, [productId]: size }
+      prev[productId] === size ? { ...prev, [productId]: "" } : { ...prev, [productId]: size }
     );
   };
 
@@ -272,27 +291,48 @@ export default function Catalog() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-semibold tracking-[0.15em] text-wave-mid uppercase mr-2">Размер:</span>
-            {SIZES.map((size) => (
-              <button
-                key={size}
-                onClick={() => setSelectedSize(selectedSize === size ? null : size)}
-                className={`w-10 h-10 text-sm font-medium border transition-colors ${
-                  selectedSize === size
-                    ? "bg-wave-black text-wave-white border-wave-black"
-                    : "bg-white text-wave-mid border-black/12 hover:border-wave-black hover:text-wave-black"
-                }`}
-              >
-                {size}
-              </button>
-            ))}
-            {selectedSize && (
-              <button onClick={() => setSelectedSize(null)} className="text-xs text-wave-mid hover:text-wave-black ml-2 underline">
-                Сбросить
-              </button>
-            )}
-          </div>
+          {!isClothingTab && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold tracking-[0.15em] text-wave-mid uppercase mr-2">Размер обуви:</span>
+              {SHOE_SIZES.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedShoeSize(selectedShoeSize === size ? null : size)}
+                  className={`w-10 h-10 text-sm font-medium border transition-colors ${
+                    selectedShoeSize === size
+                      ? "bg-wave-black text-wave-white border-wave-black"
+                      : "bg-white text-wave-mid border-black/12 hover:border-wave-black hover:text-wave-black"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+              {selectedShoeSize && (
+                <button onClick={() => setSelectedShoeSize(null)} className="text-xs text-wave-mid hover:text-wave-black ml-2 underline">Сбросить</button>
+              )}
+            </div>
+          )}
+          {!isShoeTab && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold tracking-[0.15em] text-wave-mid uppercase mr-2">Размер одежды:</span>
+              {CLOTH_SIZES.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedClothSize(selectedClothSize === size ? null : size)}
+                  className={`px-3 h-10 text-sm font-medium border transition-colors ${
+                    selectedClothSize === size
+                      ? "bg-wave-black text-wave-white border-wave-black"
+                      : "bg-white text-wave-mid border-black/12 hover:border-wave-black hover:text-wave-black"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+              {selectedClothSize && (
+                <button onClick={() => setSelectedClothSize(null)} className="text-xs text-wave-mid hover:text-wave-black ml-2 underline">Сбросить</button>
+              )}
+            </div>
+          )}
         </div>
 
         {/* PRODUCTS */}
@@ -301,7 +341,7 @@ export default function Catalog() {
             <Icon name="SearchX" size={48} className="mx-auto text-black/15 mb-4" />
             <p className="font-display text-3xl text-black/25">НИЧЕГО НЕ НАЙДЕНО</p>
             <button
-              onClick={() => { setSearch(""); setActiveCategory("Все"); setSelectedSize(null); setOnlyDiscount(false); }}
+              onClick={() => { setSearch(""); setActiveCategory("Все"); setSelectedShoeSize(null); setSelectedClothSize(null); setOnlyDiscount(false); }}
               className="mt-6 text-sm text-wave-mid hover:text-wave-black underline"
             >
               Сбросить все фильтры
@@ -331,7 +371,12 @@ export default function Catalog() {
                   </div>
 
                   <div className="mb-3 flex-1">
-                    <p className="text-xs text-wave-mid mb-0.5">{product.brand}</p>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <p className="text-xs text-wave-mid">{product.brand}</p>
+                      {product.type === "cloth" && (
+                        <span className="text-[10px] font-bold tracking-wider text-[#FF3B1F] border border-[#FF3B1F] px-1.5 py-0.5 uppercase leading-none">Одежда</span>
+                      )}
+                    </div>
                     <h3 className="font-semibold text-wave-black leading-tight">{product.name}</h3>
                     <div className="flex items-center gap-2 mt-2">
                       <span className="font-bold text-wave-black">{fmt(product.price)}</span>
@@ -343,19 +388,22 @@ export default function Catalog() {
 
                   {/* Size picker */}
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {product.sizes.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => toggleSize(product.id, size)}
-                        className={`w-8 h-8 text-xs font-medium border transition-colors ${
-                          chosenSize === size
-                            ? "bg-wave-black text-white border-wave-black"
-                            : "bg-white text-wave-mid border-black/12 hover:border-wave-black hover:text-wave-black"
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
+                    {product.sizes.map((size) => {
+                      const isCloth = product.type === "cloth";
+                      return (
+                        <button
+                          key={size}
+                          onClick={() => toggleSize(product.id, size)}
+                          className={`${isCloth ? "px-2.5 h-8" : "w-8 h-8"} text-xs font-medium border transition-colors ${
+                            chosenSize === size
+                              ? "bg-wave-black text-white border-wave-black"
+                              : "bg-white text-wave-mid border-black/12 hover:border-wave-black hover:text-wave-black"
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      );
+                    })}
                   </div>
 
                   <button
@@ -367,7 +415,7 @@ export default function Catalog() {
                         : "bg-black/5 text-black/30 cursor-not-allowed"
                     }`}
                   >
-                    {chosenSize ? `Заказать — ${chosenSize} р.` : "Выберите размер"}
+                    {chosenSize ? `Заказать — размер ${chosenSize}` : "Выберите размер"}
                   </button>
                 </div>
               );
